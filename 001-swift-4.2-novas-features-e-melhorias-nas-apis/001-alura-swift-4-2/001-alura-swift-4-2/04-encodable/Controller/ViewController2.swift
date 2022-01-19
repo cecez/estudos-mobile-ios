@@ -17,13 +17,12 @@ class ViewController2: UIViewController {
     func favoritaViagem() {
         let viagem = Viagem(1, "Porto Alegre", 15, "49,90", "Brasil")
         
-        let parametros: [String: Any] = [
-            "id": viagem.id,
-            "titulo": viagem.titulo,
-            "quantidade_de_dias": viagem.quantidadeDeDias,
-            "preco": viagem.preco,
-            "localizacao": viagem.localizacao
-        ]
+        let viagemCodificada = try? JSONEncoder().encode(viagem)
+        guard let viagemData = viagemCodificada else { return }
+        
+        if let json = String(data: viagemData, encoding: .utf8) {
+            print(json)
+        }
     }
 }
 

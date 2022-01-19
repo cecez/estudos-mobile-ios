@@ -7,9 +7,8 @@
 
 import Foundation
 
-class Viagem
+class Viagem: NSObject
 {
-    
     // MARK: - Atributos
     
     let id: Int
@@ -28,4 +27,10 @@ class Viagem
         self.localizacao = localizacao
     }
     
+}
+
+extension Viagem: Encodable {
+    enum CodingKeys: String, CodingKey {
+        case id, titulo, quantidadeDeDias = "quantidade_de_dias", preco, localizacao
+    }
 }
