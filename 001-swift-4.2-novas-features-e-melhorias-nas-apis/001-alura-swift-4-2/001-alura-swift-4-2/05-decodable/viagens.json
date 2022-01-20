@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "titulo": "Muambas em Jaguarão",
+        "quantidade_de_dias": 1,
+        "preco": "200,00",
+        "localizacao": "Jaguarão"
+    },
+    {
+        "id": 2,
+        "titulo": "Chocolatão no RS",
+        "quantidade_de_dias": 5,
+        "preco": "1.200,00",
+        "localizacao": "Imbé"
+    },
+    {
+        "id": 3,
+        "titulo": "Alemoazada",
+        "quantidade_de_dias": 3,
+        "preco": "800,00",
+        "localizacao": "Morro Reuter"
+    }
+]
