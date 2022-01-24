@@ -16,9 +16,9 @@ class ViewController3: UIViewController {
 
     func getViagens() {
         guard let json = ViagemAPI().getViagens() else { return }
-        let listaDeViagens = Viagem2().desserializa(json)
-        
-        
+        guard let jsonData = Viagem2.converteListaParaData(json) else { return }
+        let listaDeViagens = Viagem2.decodificaViagem(jsonData)
+        print(listaDeViagens)
     }
 }
 

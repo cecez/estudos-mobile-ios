@@ -7,7 +7,11 @@
 
 import Foundation
 
-class Viagem2 {
+class Viagem2: NSObject, Decodable {
+    
+    enum CodingKeys: String, CodingKey {
+        case id, titulo, quantidadeDeDias = "quantidade_de_dias", preco, localizacao
+    }
     
     // MARK: - Atributos
     
@@ -27,28 +31,22 @@ class Viagem2 {
         self.localizacao = localizacao
     }
     
-    convenience init() {
-        self.init(0, "", 0, "", "")
-    }
+
     
     // MARK: - Métodos
     
-    func desserializa(_ json: [[String: Any]]) -> [Viagem2] {
-        var listaDeViagens: [Viagem2] = []
-        
-        for viagem in json {
-            guard
-                let id = viagem["id"] as? Int,
-                let titulo = viagem["titulo"] as? String,
-                let quantidadeDeDias = viagem["quantidade_de_dias"] as? Int,
-                let preco = viagem["preco"] as? String,
-                let localizacao = viagem["localizacao"] as? String
-            else { return listaDeViagens }
-            
-            let novaViagem = Viagem2(id, titulo, quantidadeDeDias, preco, localizacao)
-            listaDeViagens.append(novaViagem)
+    class func converteListaParaData(_ json: [[String: Any]]) -> Data? {
+        return try? JSONSerialization.data(withJSONObject: json, options: [])
+    }
+    
+    class func decodificaViagem(_ json: Data) -> [Viagem2]? {
+        do {
+            return try JSONDecoder().decode([Viagem2].self, from: json)
+        } catch {
+            print(error.localizedDescription)
+            return nil
         }
-        
-        return listaDeViagens
     }
 }
+
+
