@@ -19,7 +19,9 @@ class ViewController: UIViewController {
                 case .success(let dataJson):
                     print("sucesso")
                     let resultado = try! JSONSerialization.jsonObject(with: dataJson, options: .allowFragments)
-                    print(resultado)
+                    let retornoAPI = resultado as? [String: Any]
+                    guard let listaDePokemons = retornoAPI?["results"] as? [[String: Any]] else { return }
+                    print(listaDePokemons)
                 
                 case .failure(let error):
                     print("falha")
