@@ -17,14 +17,19 @@ class ViewController: UIViewController {
         Helper.loadJson(fromURLString: "https://pokeapi.co/api/v2/pokemon?limit=10") { (result) in
             switch result {
                 case .success(let dataJson):
-                    print("sucesso")
-                    let resultado = try! JSONSerialization.jsonObject(with: dataJson, options: .allowFragments)
-                    let retornoAPI = resultado as? [String: Any]
-                    guard let listaDePokemons = retornoAPI?["results"] as? [[String: Any]] else { return }
-                    print(listaDePokemons)
+                    guard
+                        let resultado = try? JSONSerialization.jsonObject(with: dataJson, options: .allowFragments),
+                        let retornoAPI = resultado as? [String: Any],
+                        let listaDeDados = retornoAPI["results"] as? [[String: Any]],
+                        let listaDeDados2 = Pokemon.converteListaParaData(listaDeDados),
+                        let listaDePokemons = Pokemon.decodifica(listaDeDados2)
+                    else { return }
+                
+                    for pokemon in listaDePokemons {
+                        print(pokemon.nome)
+                    }
                 
                 case .failure(let error):
-                    print("falha")
                     print(error)
             }
         }
@@ -33,8 +38,7 @@ class ViewController: UIViewController {
         
         // decodificar (com Decodable)
         
-        // printar no console/tela
-        print("eu fui chamado, valeus!");
+        
     }
 
 
